@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from http import HTTPStatus
 from sqlalchemy import select, update
 from sqlalchemy.orm import Session
@@ -9,6 +10,14 @@ from src.auth.models import User, Transaction
 from src.auth.security import get_password_hash
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.post("/create/", status_code=HTTPStatus.CREATED, response_model=Username)
