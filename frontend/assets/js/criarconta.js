@@ -71,5 +71,5 @@ btnLogin.addEventListener("click", async () => {
     text: "Sua conta foi criada com sucesso.",
   });
 
-  window.location.href = "login.html";
+  window.location.href = "index.html";
 });
