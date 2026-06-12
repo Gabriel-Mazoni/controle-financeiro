@@ -1,19 +1,19 @@
-const senha = document.querySelector("#camposenha");
-const senhaConfirmar = document.querySelector("#camposenhaconfirmar");
+const password = document.querySelector("#camposenha");
+const passwordConfirm = document.querySelector("#camposenhaconfirmar");
 const email = document.querySelector("#campoemail");
-const nome = document.querySelector("#camponome");
-const sobrenome = document.querySelector("#camposobrenome");
-const dataNascimento = document.querySelector("#datanascimento");
+const firstname = document.querySelector("#camponome");
+const lastname = document.querySelector("#camposobrenome");
+const dateBirth = document.querySelector("#datanascimento");
 const btnLogin = document.querySelector(".btncriarconta");
 
 btnLogin.addEventListener("click", async () => {
   if (
-    !nome.value.trim() ||
-    !sobrenome.value.trim() ||
+    !firstname.value.trim() ||
+    !lastname.value.trim() ||
     !email.value.trim() ||
-    !senha.value.trim() ||
-    !senhaConfirmar.value.trim() ||
-    !dataNascimento.value
+    !password.value.trim() ||
+    !passwordConfirm.value.trim() ||
+    !dateBirth.value
   ) {
     await Swal.fire({
       icon: "warning",
@@ -23,7 +23,7 @@ btnLogin.addEventListener("click", async () => {
     return;
   }
 
-  if (senha.value.length < 8) {
+  if (password.value.length < 8) {
     await Swal.fire({
       icon: "warning",
       title: "Senha inválida",
@@ -32,7 +32,7 @@ btnLogin.addEventListener("click", async () => {
     return;
   }
 
-  if (senha.value !== senhaConfirmar.value) {
+  if (password.value !== passwordConfirm.value) {
     await Swal.fire({
       icon: "error",
       title: "Senhas diferentes",
@@ -41,17 +41,17 @@ btnLogin.addEventListener("click", async () => {
     return;
   }
 
-  const respostaLogin = await fetch("http://localhost:8000/cadastrarlogin", {
+  const respostaLogin = await fetch("http://localhost:8000/create/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      nome: nome.value,
-      sobrenome: sobrenome.value,
+      first_name: firstname.value,
+      last_name: lastname.value,
       email: email.value,
-      senha: senha.value,
-      dataNascimento: dataNascimento.value,
+      password: password.value,
+      birth_date: dateBirth.value,
     }),
   });
 

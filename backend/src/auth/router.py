@@ -24,23 +24,27 @@ app.add_middleware(
 def create_user(user: PrivateUser, session: Session = Depends(get_db)):
 
     existing_user = session.scalar(
-        select(User).where(
-            (User.username == user.username) | (User.email == user.email)
-        )
+        select(User).where(User.email == user.email)
     )
 
     if existing_user:
-        if existing_user.email == user.email:
-            raise HTTPException(
-                status_code=HTTPStatus.CONFLICT,
-                detail="Email already exists",
-            )
+        raise HTTPException(
+            status_code=HTTPStatus.CONFLICT,
+            detail="Email already exists",
+        )
 
     hashed_password = get_password_hash(user.password)
-    new_user = User(username=user.username, email=user.email, password=hashed_password)
+
+    new_user = User(
+        first_name=user.first_name,
+        last_name=user.last_name,
+        birth_date=user.birth_date,
+        email=user.email,
+        password=hashed_password,
+    )
 
     session.add(new_user)
     session.commit()
     session.refresh(new_user)
 
-    return {"username": new_user.username}
+    return {"first_name": new_user.first_name}
