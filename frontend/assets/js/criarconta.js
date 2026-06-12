@@ -3,7 +3,7 @@ const passwordConfirm = document.querySelector("#camposenhaconfirmar");
 const email = document.querySelector("#campoemail");
 const firstname = document.querySelector("#camponome");
 const lastname = document.querySelector("#camposobrenome");
-const dateBirth = document.querySelector("#datanascimento");
+const dateBirth = document.querySelector("#campodatanascimento");
 const btnLogin = document.querySelector(".btncriarconta");
 
 btnLogin.addEventListener("click", async () => {
